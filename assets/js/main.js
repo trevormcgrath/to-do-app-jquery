@@ -14,8 +14,10 @@ $(document).ready(function() {
         $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
 
         $taskSubmit.click(function(event) {
-            todoTasks.push($taskInput.val());
+            var input = $taskInput.find("input");
+            todoTasks.push(input.val().trim());
             console.log(todoTasks);
+            input.val("");
 
         });
 
