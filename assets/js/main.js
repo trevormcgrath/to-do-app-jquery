@@ -1,18 +1,26 @@
 $(document).ready(function() {
-	console.log('jquery loaded');
-	$("#task-input").submit(function(e){e.preventDefault();}); //Stopping the normal form behavior.
 
-	/* Global Variables */
-		var toDoTasks = [];
-		var completedTasks =[];
-	/* End globals */
+    var todoApp = (function($) {
+        console.log('jquery loaded');
 
-	$('#task-submit').click(function(event) {
-		toDoTasks.push($('#task-value').val());
-	});
-	
+        /* Global Variables */
+        var todoTasks = [],
+            completedTasks = [],
+            /*DOM Elements*/
+            $taskInput = $("#task-input"),
+            $taskSubmit = $('#task-submit');
+        /* End globals */
 
-	console.log(toDoTasks);
+        $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
 
+        $taskSubmit.click(function(event) {
+            todoTasks.push($taskInput.val());
+            console.log(todoTasks);
+
+        });
+
+
+        console.log(todoTasks);
+    }(jQuery));
 
 });
