@@ -20,10 +20,8 @@ $(document).ready(function() {
             var input = $taskInput.find("input");
             var temp = input.val().trim();
             $todoList.append('<li><input type="checkbox"><label for=""> '+temp+' </label><span>x</span></li>');
-            todoTasks.push(input.val().trim());
-            console.log(todoTasks);
+            //todoTasks.push(input.val().trim());
             input.val("");
-            
         });
 
         //<li><input type="checkbox"><label for="">Lorem ipsum.</label><span>x</span></li>
