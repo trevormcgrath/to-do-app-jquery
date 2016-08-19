@@ -7,7 +7,7 @@ $(document).ready(function() {
 		var completedTasks =[];
 	/* End globals */
 
-	toDoTtasks.push($('task-value').val());
+	toDoTtasks.push($('#task-value').val());
 
 	console.log(toDoTasks);
 
