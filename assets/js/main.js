@@ -7,8 +7,10 @@ $(document).ready(function() {
 		var completedTasks =[];
 	/* End globals */
 
-
-	toDoTtasks.push($('#task-value').val());
+	$('#task-submit').click(function(event) {
+		toDoTasks.push($('#task-value').val());
+	});
+	
 
 	console.log(toDoTasks);
 
