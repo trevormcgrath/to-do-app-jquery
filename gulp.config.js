@@ -1,7 +1,7 @@
 module.exports = {
     path: {
         //ROOT FOLDERS
-        src: './src/',
+        src: './',
         dist: './dist/',
         //SUB FOLDERS
         scss: 'assets/scss/',
