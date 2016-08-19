@@ -18,10 +18,12 @@ $(document).ready(function() {
         Add a task from input into the todoTasks array, then clear the input. ***/
         $taskSubmit.click(function(event) {
             var input = $taskInput.find("input");
+            var temp = input.val().trim();
+            $todoList.append('<li><input type="checkbox"><label for=""> '+temp+' </label><span>x</span></li>');
             todoTasks.push(input.val().trim());
             console.log(todoTasks);
             input.val("");
-            taskAddition();
+            
         });
 
         //<li><input type="checkbox"><label for="">Lorem ipsum.</label><span>x</span></li>
