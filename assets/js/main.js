@@ -24,12 +24,7 @@ $(document).ready(function() {
             input.val("");
         });
 
-        //<li><input type="checkbox"><label for="">Lorem ipsum.</label><span>x</span></li>
-        function taskAddition(){
-            for (var i = todoTasks.length - 1; i >= 0; i--) {
-                $todoList.append('<li><input type="checkbox"><label for=""> '+todoTasks[i]+' </label><span>x</span></li>');
-            }
-        };
+        
 
         
         
