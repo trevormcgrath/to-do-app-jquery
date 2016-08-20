@@ -1,10 +1,64 @@
-#list-container{
-
-	ul, li{
-		list-style: none;
-	}
-
-	img{
-		max-width: 12px;
-	}
+//FONTS
+@import 'https://fonts.googleapis.com/css?family=Montserrat|Raleway';
+//UTILS
+@import './utils/#';
+//BASE
+@import './base/#';
+#app-container {
+    * {
+        @expand %brdBox;
+        @expand %reset;
+    }
+    ul,
+    li {
+        list-style: none;
+    }
+    button {
+        font-weight: 600px;
+        font-family: Montserrat, "Arial Black", san-serif;
+        text-transform: uppercase;
+    }
+    header {
+        background: $color_dlx_dark;
+        color: $color_base_white;
+        overflow: hidden;
+        text-align: center;
+        h1 {
+            text-align: center;
+        }
+        nav {
+            button {
+                background: $color_dlx_light;
+                border: 2px solid $color_base_white;
+                border: none;
+                color: $color_base_white;
+                margin: auto;
+                padding: 7px 0;
+                width: 49.5%;
+                &.active {
+                    background: $color_dlx_accent;
+                    color: $color_base_white;
+                }
+            }
+        }
+        #input-section {
+            background: $color_base_white;
+            border-bottom: 1px solid $color_base_lightGrey;
+            input,
+            button {
+                border: 1px solid $color_base_lightGrey;
+                padding: 6px 10px;
+            }
+            button {
+                background: $color_base_green;
+                color: $color_base_white;
+            }
+            form {
+                padding: 20px 0;
+                input {
+                    width: 70%;
+                }
+            }
+        }
+    }
 }

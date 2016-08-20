@@ -1,0 +1,8 @@
+//-----------------------------------//
+//  MIXINS
+//-----------------------------------//
+@mixin screenSize($size) {
+    @media screen and (min-width: $size) {
+        @content
+    }
+}
