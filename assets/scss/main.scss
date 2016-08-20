@@ -6,11 +6,14 @@
 @import './base/#';
 #app-container {
     * {
-        @expand %brdBox;
-        @expand %reset;
+        @extend %brdBx;
+    }
+    button {
+        cursor: pointer
     }
     ul,
     li {
+        @extend %reset;
         list-style: none;
     }
     button {
@@ -28,9 +31,11 @@
         }
         nav {
             button {
+                @include hoverHighlight($color_dlx_light);
                 background: $color_dlx_light;
                 border: 2px solid $color_base_white;
                 border: none;
+                border-radius: 2px 3px 0 0;
                 color: $color_base_white;
                 margin: auto;
                 padding: 7px 0;
@@ -47,10 +52,13 @@
             input,
             button {
                 border: 1px solid $color_base_lightGrey;
+                border-radius: 2px;
                 padding: 6px 10px;
             }
             button {
+                @include hoverHighlight($color_base_green);
                 background: $color_base_green;
+                border-color: transparent;
                 color: $color_base_white;
             }
             form {
@@ -59,6 +67,70 @@
                     width: 70%;
                 }
             }
+        }
+    }
+    #list-container {
+        overflow: hidden;
+        padding: 0 20px;
+    }
+    #todo-container,
+    #completed-container {
+        display: none;
+        &.visable {
+            display: block;
+        }
+        input {
+            display: none;
+            position: absolute;
+            &:checked {
+                + label {
+                    color: $color_base_lightGrey;
+                    text-decoration: line-through;
+                    span {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+        li {
+            border-top: 1px solid $color_base_lightGrey;
+            position: relative;
+            z-index: 0;
+            &:last-child {
+                border-bottom: 1px solid $color_base_lightGrey;
+            }
+            .complete,
+            .remove {
+                background-size: cover;
+                background-repeat: no-repeat;
+                cursor: pointer;
+                display: none;
+                height: 20px;
+                position: absolute;
+                width: 20px;
+                vertical-align: bottom;
+                z-index: 99;
+                top: 10px;
+            }
+            .complete {
+                background-image: url(../images/checkmark.png);
+                left: 10px;
+            }
+            .remove {
+                background-image: url(../images/remove.png);
+                right: 10px;
+            }
+            &:hover {
+                .complete,
+                .remove {
+                    display: inline-block;
+                }
+            }
+        }
+        label {
+            cursor: pointer;
+            display: block;
+            padding: 10px 40px;
         }
     }
 }
