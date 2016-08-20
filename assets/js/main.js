@@ -7,9 +7,15 @@ $(document).ready(function() {
             completedTasks = [],
             /*DOM Elements*/
             $taskInput = $("#task-input"),
-            $taskSubmit = $('#task-submit');
-            $todoList = $('#todo-list');
-            $completedList = $('#completed-list')
+            $taskSubmit = $('#task-submit'),
+            $todoList = $('#todo-list'),
+            $completedList = $('#completed-list'),
+
+            $complete = $('#complete'),
+            $theTask = $('#the-task'),
+            $remove = $('#remove'),
+            $add = $('#add'),
+            $trash = $('#trash');
 
         /* End globals */
 
@@ -21,10 +27,32 @@ $(document).ready(function() {
         $taskSubmit.click(function(event) {
             var input = $taskInput.find("input");
             var temp = input.val().trim();
-            $todoList.append('<li><span id="complete"><img src="assets/images/checkmark.png" /></span> <span id="the-task">'+temp+'</span> </label><span id="remove"><img src="assets/images/remove.png" /></span></li>');
+            $todoList.append('<li><span id="complete"><img src="assets/images/checkmark.png" /></span><span id="the-task">'+temp+'</span><span id="remove"><img src="assets/images/remove.png" /></span></li>');
             //todoTasks.push(input.val().trim());
             input.val("");
         });
+
+        $todoList.on('click', $complete, function(event) {
+            alert('complete button clicked');
+            /* Act on the event */
+        });
+
+        $todoList.on('click', $remove, function(event) {
+            alert('remove button clicked');
+            /* Act on the event */
+        });
+
+        $todoList.on('click', $add, function(event) {
+            alert('add button clicked');
+            /* Act on the event */
+        });
+
+        $todoList.on('click', $trash, function(event) {
+            alert('trash button clicked');
+            /* Act on the event */
+        });
+
+
 
 /*** Objectives / Plan:
             
