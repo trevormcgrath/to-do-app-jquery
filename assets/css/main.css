@@ -1,2 +1,7 @@
+#list-container ul, #list-container li {
+  list-style: none; }
+
+#list-container img {
+  max-width: 12px; }
 
 /*# sourceMappingURL=main.css.map */
