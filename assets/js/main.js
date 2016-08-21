@@ -8,8 +8,8 @@ $(document).ready(function() {
             //DOM Elements
             $taskInput = $("#task-input"),
             $taskSubmit = $('#task-submit'),
-            $todoList = $('#todo-list'),
-            $completedList = $('#completed-list'),
+            $todoList = $('#todo-container'),
+            $completedList = $('#completed-container'),
             //Buttons
             $todoListBtn = $('#todo-list-btn'),
             $completedListBtn = $('#completed-list-btn'),
@@ -26,6 +26,7 @@ $(document).ready(function() {
             var input = $taskInput.find("input"),
                 temp = input.val().trim(),
                 temp_id = temp.replace(/\s+/g, '-').toLowerCase(),
+                _$todoList = $('#todo-list'),
                 taskHTML = "";
 
             console.log(temp_id);
@@ -41,7 +42,7 @@ $(document).ready(function() {
             taskHTML += '</li>';
 
             //Add task to top of list
-            $todoList.prepend(taskHTML);
+            _$todoList.prepend(taskHTML);
 
             //Reset input value
             input.val("");
@@ -53,21 +54,22 @@ $(document).ready(function() {
         ***/
         $listTabBtns.click(function(e) {
             var $activeTab = $(this);
-            // Remove active class
+            // remove active class
             $listTabBtns.removeClass('active');
-            //add active class to clicked tab
+            // remove visible class from both list-containers
+            $todoList.add($completedList).removeClass('visible');
+            // add active class to clicked tab
             $activeTab.addClass('active');
 
+            // if active tab is "Todo"
             if ($activeTab.text().toLowerCase() === 'todo') {
-                $todoList.show();
-                $completedList.hide();
+                // add 'visible' class
+                $todoList.addClass('visible');
             } else {
-                $completedList.show();
-                $todoList.hide();
+                // add class to 'completed' tab
+                $completedList.addClass('visible');
 
             }
-
-            console.log($activeTab);
         });
 
 

@@ -461,8 +461,8 @@ hr {
 #app-container #todo-container,
 #app-container #completed-container {
   display: none; }
-  #app-container #todo-container.visable,
-  #app-container #completed-container.visable {
+  #app-container #todo-container.visible,
+  #app-container #completed-container.visible {
     display: block; }
   #app-container #todo-container input,
   #app-container #completed-container input {
