@@ -411,6 +411,8 @@ hr {
   font-weight: 600px;
   font-family: Montserrat, "Arial Black", san-serif;
   text-transform: uppercase; }
+  #app-container button:active, #app-container button:focus {
+    outline: none; }
 
 #app-container header {
   background: #222930;

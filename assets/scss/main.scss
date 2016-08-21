@@ -20,6 +20,10 @@
         font-weight: 600px;
         font-family: Montserrat, "Arial Black", san-serif;
         text-transform: uppercase;
+        &:active,
+        &:focus {
+            outline: none;
+        }
     }
     header {
         background: $color_dlx_dark;

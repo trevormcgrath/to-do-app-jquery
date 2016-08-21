@@ -5,11 +5,15 @@ $(document).ready(function() {
         /* Global Variables */
         var todoTasks = [],
             completedTasks = [],
-            /*DOM Elements*/
+            //DOM Elements
             $taskInput = $("#task-input"),
             $taskSubmit = $('#task-submit'),
             $todoList = $('#todo-list'),
-            $completedList = $('#completed-list');
+            $completedList = $('#completed-list'),
+            //Buttons
+            $todoListBtn = $('#todo-list-btn'),
+            $completedListBtn = $('#completed-list-btn'),
+            $listTabBtns = $('header nav button');
 
         /* End globals */
 
@@ -43,32 +47,56 @@ $(document).ready(function() {
             input.val("");
         });
 
+        /*** $listTabBtns
+        - Add 'active' class to list tab when clicked
+        - Display active task list
+        ***/
+        $listTabBtns.click(function(e) {
+            var $activeTab = $(this);
+            // Remove active class
+            $listTabBtns.removeClass('active');
+            //add active class to clicked tab
+            $activeTab.addClass('active');
+
+            if ($activeTab.text().toLowerCase() === 'todo') {
+                $todoList.show();
+                $completedList.hide();
+            } else {
+                $completedList.show();
+                $todoList.hide();
+
+            }
+
+            console.log($activeTab);
+        });
+
+
         /*** Objectives / Plan:
 
-            Short run:
-                - When the $todoList's <span id="complete"> is clicked, take <span id="the-task">.html()
-                    into a varibale, put into the $completedList.append() below.
+        	Short run:
+        		- When the $todoList's <span id="complete"> is clicked, take <span id="the-task">.html()
+        			into a varibale, put into the $completedList.append() below.
 
-                - When the $todoLis's <span id="remove"> is clicked, put into the... $completedList ?
+        		- When the $todoLis's <span id="remove"> is clicked, put into the... $completedList ?
 
-                - When the $completedList's <span id="add"> is clicked, put back into the $todoList and
-                    show a notification
+        		- When the $completedList's <span id="add"> is clicked, put back into the $todoList and
+        			show a notification
 
-                - When the $completedList's <span id="trash"> is clicked, make an alert "Permanently delete?"
-                    then just .remove()
+        		- When the $completedList's <span id="trash"> is clicked, make an alert "Permanently delete?"
+        			then just .remove()
 
-            Long run:
-                - In the header area, make the 'Todo' and 'Complete' buttons toggle an add/remove class
-                transition thing to show the different <div id="todo-container"> versus <div id="completed-container">
+        	Long run:
+        		- In the header area, make the 'Todo' and 'Complete' buttons toggle an add/remove class
+        		transition thing to show the different <div id="todo-container"> versus <div id="completed-container">
 
-                - Add styles to make app look good, use min-width and build mobile styles first, then outwards towards desktop
+        		- Add styles to make app look good, use min-width and build mobile styles first, then outwards towards desktop
 
         ***/
 
 
         /* this will be the HTML <li> item for the COMPLETED list:
 
-            $completedList.append('<li><span id="add"><img src="assets/images/add.png" /></span> <span id="the-task">'+temp+'</span> </label><span id="trash"><img src="assets/images/trash.png" /></span></li>');
+        	$completedList.append('<li><span id="add"><img src="assets/images/add.png" /></span> <span id="the-task">'+temp+'</span> </label><span id="trash"><img src="assets/images/trash.png" /></span></li>');
         */
 
     }(jQuery));
