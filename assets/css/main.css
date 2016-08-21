@@ -2,6 +2,15 @@
 /* RESPONSIVE SCREEN SIZES */
 /* CHYNO DELUXE PALLET */
 /* DEFAULT COLORS */
+#app-container * {
+  box-sizing: border-box; }
+
+#app-container ul,
+#app-container li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
 /*-----------------------------------//
 //  NORMALIZE STYLES
 //-----------------------------------*/
@@ -391,9 +400,8 @@ hr {
   height: 1px;
   background: #eeeeee; }
 
-#app-container * {
-  @expand %brdBox;
-  @expand %reset; }
+#app-container button {
+  cursor: pointer; }
 
 #app-container ul,
 #app-container li {
@@ -403,6 +411,8 @@ hr {
   font-weight: 600px;
   font-family: Montserrat, "Arial Black", san-serif;
   text-transform: uppercase; }
+  #app-container button:active, #app-container button:focus {
+    outline: none; }
 
 #app-container header {
   background: #222930;
@@ -415,10 +425,13 @@ hr {
     background: #656d83;
     border: 2px solid #fff;
     border: none;
+    border-radius: 2px 3px 0 0;
     color: #fff;
     margin: auto;
     padding: 7px 0;
     width: 49.5%; }
+    #app-container header nav button:hover {
+      background: #707991; }
     #app-container header nav button.active {
       background: #e64b4b;
       color: #fff; }
@@ -428,13 +441,79 @@ hr {
     #app-container header #input-section input,
     #app-container header #input-section button {
       border: 1px solid #ddd;
+      border-radius: 2px;
       padding: 6px 10px; }
     #app-container header #input-section button {
       background: #23CE6B;
+      border-color: transparent;
       color: #fff; }
+      #app-container header #input-section button:hover {
+        background: #2fdc78; }
     #app-container header #input-section form {
       padding: 20px 0; }
       #app-container header #input-section form input {
         width: 70%; }
+
+#app-container #list-container {
+  overflow: hidden;
+  padding: 0 20px; }
+
+#app-container #todo-container,
+#app-container #completed-container {
+  display: none; }
+  #app-container #todo-container.visible,
+  #app-container #completed-container.visible {
+    display: block; }
+  #app-container #todo-container input,
+  #app-container #completed-container input {
+    display: none;
+    position: absolute; }
+    #app-container #todo-container input:checked + label,
+    #app-container #completed-container input:checked + label {
+      color: #ddd;
+      text-decoration: line-through; }
+      #app-container #todo-container input:checked + label span,
+      #app-container #completed-container input:checked + label span {
+        display: inline-block; }
+  #app-container #todo-container li,
+  #app-container #completed-container li {
+    border-top: 1px solid #ddd;
+    position: relative;
+    z-index: 0; }
+    #app-container #todo-container li:last-child,
+    #app-container #completed-container li:last-child {
+      border-bottom: 1px solid #ddd; }
+    #app-container #todo-container li .complete,
+    #app-container #todo-container li .remove,
+    #app-container #completed-container li .complete,
+    #app-container #completed-container li .remove {
+      background-size: cover;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      display: none;
+      height: 20px;
+      position: absolute;
+      width: 20px;
+      vertical-align: bottom;
+      z-index: 99;
+      top: 10px; }
+    #app-container #todo-container li .complete,
+    #app-container #completed-container li .complete {
+      background-image: url(../images/checkmark.png);
+      left: 10px; }
+    #app-container #todo-container li .remove,
+    #app-container #completed-container li .remove {
+      background-image: url(../images/remove.png);
+      right: 10px; }
+    #app-container #todo-container li:hover .complete,
+    #app-container #todo-container li:hover .remove,
+    #app-container #completed-container li:hover .complete,
+    #app-container #completed-container li:hover .remove {
+      display: inline-block; }
+  #app-container #todo-container label,
+  #app-container #completed-container label {
+    cursor: pointer;
+    display: block;
+    padding: 10px 40px; }
 
 /*# sourceMappingURL=main.css.map */
