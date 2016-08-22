@@ -495,9 +495,6 @@ body {
     border-top: 1px solid #ddd;
     position: relative;
     z-index: 0; }
-    #app-container #todo-container li:last-child,
-    #app-container #completed-container li:last-child {
-      border-bottom: 1px solid #ddd; }
     #app-container #todo-container li .complete,
     #app-container #todo-container li .remove,
     #app-container #completed-container li .complete,

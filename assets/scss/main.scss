@@ -116,9 +116,6 @@ body {
             border-top: 1px solid $color_base_lightGrey;
             position: relative;
             z-index: 0;
-            &:last-child {
-                border-bottom: 1px solid $color_base_lightGrey;
-            }
             .complete,
             .remove {
                 background-size: cover;
