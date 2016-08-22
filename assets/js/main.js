@@ -90,12 +90,13 @@ $(document).ready(function() {
             var temp = this.closest('li');
 
             if (temp != "") {
-                //.prepend the #todo-list task to top of the #completed-list page after 1200ms of being clicked.
+                //.prepend the #todo-list task to top of the #completed-list page after 250ms of being clicked.
                 setTimeout(
                     function() {
+
                         $('#completed-list').prepend(temp);
                     },
-                    1200
+                    250
                 );
 
             }
@@ -110,7 +111,7 @@ $(document).ready(function() {
                 function() {
                     temp.remove();
                 },
-                1200
+                250
             );
         });
 
@@ -124,7 +125,7 @@ $(document).ready(function() {
                     function() {
                         $('#todo-list').prepend(temp);
                     },
-                    1200
+                    250
                 );
 
             }
@@ -138,7 +139,7 @@ $(document).ready(function() {
                 function() {
                     temp.remove();
                 },
-                1200
+                250
             );
         });
 
