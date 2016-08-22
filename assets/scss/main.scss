@@ -4,6 +4,10 @@
 @import './utils/#';
 //BASE
 @import './base/#';
+body {
+    background: url(../images/bg1.jpg);
+}
+
 #app-container {
     * {
         @extend %brdBx;
@@ -25,8 +29,15 @@
             outline: none;
         }
     }
+    header nav,
+    #input-section,
+    #list-container {
+        max-width: 95%;
+        margin: auto;
+    }
     header {
-        background-color: $color_dlx_dark;
+        background: $color_dlx_dark;
+        background-image: url(../images/header-bg.png);
         color: $color_base_white;
         overflow: hidden;
         text-align: center;
@@ -43,7 +54,7 @@
                 color: $color_base_white;
                 margin: auto;
                 padding: 7px 0;
-                width: 49.5%;
+                width: 45.5%;
                 &.active {
                     background: $color_dlx_accent;
                     color: $color_base_white;
@@ -52,7 +63,7 @@
         }
         #input-section {
             background: $color_base_white;
-            border-bottom: 1px solid $color_base_lightGrey;
+            border-bottom: none;
             input,
             button {
                 border: 1px solid $color_base_lightGrey;
@@ -74,8 +85,13 @@
         }
     }
     #list-container {
+        background: $color_base_white;
         overflow: hidden;
         padding: 0 20px;
+    }
+    #list-container,
+    #input-section {
+        box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2);
     }
     #todo-container,
     #completed-container {
@@ -139,35 +155,40 @@
     }
 }
 
-@include screenSize($desktop) {
-    body {
-        background: url(../images/bg1.jpg);
-    }
+@include screenSize($tablet) {
     #app-container {
         header nav,
         #input-section,
         #list-container {
             max-width: 640px;
-            margin: auto;
         }
-        #list-container,
-        #input-section {
-            box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    #app-container {
+        header nav,
+        #input-section,
+        #list-container {
+            max-width: 100%;
         }
         header {
-            background: $color_dlx_dark;
-            background-image: url(../images/header-bg.png);
-            #input-section {
-                border-bottom: none;
-            }
             nav {
                 button {
                     width: 45.5%;
                 }
             }
         }
-        #list-container {
-            background: $color_base_white;
+        #input-section {
+            button,
+            input[type='text'] {
+                display: block;
+                width: 95%;
+                margin: auto;
+            }
+            input[type='text'] {
+                margin-bottom: 10px;
+            }
         }
     }
 }

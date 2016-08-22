@@ -400,6 +400,9 @@ hr {
   height: 1px;
   background: #eeeeee; }
 
+body {
+  background: url(../images/bg1.jpg); }
+
 #app-container button {
   cursor: pointer; }
 
@@ -414,8 +417,15 @@ hr {
   #app-container button:active, #app-container button:focus {
     outline: none; }
 
+#app-container header nav,
+#app-container #input-section,
+#app-container #list-container {
+  max-width: 95%;
+  margin: auto; }
+
 #app-container header {
-  background-color: #222930;
+  background: #222930;
+  background-image: url(../images/header-bg.png);
   color: #fff;
   overflow: hidden;
   text-align: center; }
@@ -429,7 +439,7 @@ hr {
     color: #fff;
     margin: auto;
     padding: 7px 0;
-    width: 49.5%; }
+    width: 45.5%; }
     #app-container header nav button:hover {
       background: #707991; }
     #app-container header nav button.active {
@@ -437,7 +447,7 @@ hr {
       color: #fff; }
   #app-container header #input-section {
     background: #fff;
-    border-bottom: 1px solid #ddd; }
+    border-bottom: none; }
     #app-container header #input-section input,
     #app-container header #input-section button {
       border: 1px solid #ddd;
@@ -455,8 +465,13 @@ hr {
         width: 70%; }
 
 #app-container #list-container {
+  background: #fff;
   overflow: hidden;
   padding: 0 20px; }
+
+#app-container #list-container,
+#app-container #input-section {
+  box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2); }
 
 #app-container #todo-container,
 #app-container #completed-container {
@@ -516,25 +531,25 @@ hr {
     display: block;
     padding: 10px 40px; }
 
-@media screen and (min-width: 1024px) {
-  body {
-    background: url(../images/bg1.jpg); }
+@media screen and (min-width: 640px) {
   #app-container header nav,
   #app-container #input-section,
   #app-container #list-container {
-    max-width: 640px;
-    margin: auto; }
-  #app-container #list-container,
-  #app-container #input-section {
-    box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2); }
-  #app-container header {
-    background: #222930;
-    background-image: url(../images/header-bg.png); }
-    #app-container header #input-section {
-      border-bottom: none; }
-    #app-container header nav button {
-      width: 45.5%; }
+    max-width: 640px; } }
+
+@media screen and (max-width: 480px) {
+  #app-container header nav,
+  #app-container #input-section,
   #app-container #list-container {
-    background: #fff; } }
+    max-width: 100%; }
+  #app-container header nav button {
+    width: 45.5%; }
+  #app-container #input-section button,
+  #app-container #input-section input[type='text'] {
+    display: block;
+    width: 95%;
+    margin: auto; }
+  #app-container #input-section input[type='text'] {
+    margin-bottom: 10px; } }
 
 /*# sourceMappingURL=main.css.map */
