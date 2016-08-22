@@ -415,7 +415,7 @@ hr {
     outline: none; }
 
 #app-container header {
-  background: #222930;
+  background-color: #222930;
   color: #fff;
   overflow: hidden;
   text-align: center; }
@@ -515,5 +515,26 @@ hr {
     cursor: pointer;
     display: block;
     padding: 10px 40px; }
+
+@media screen and (min-width: 1024px) {
+  body {
+    background: url(../images/bg1.jpg); }
+  #app-container header nav,
+  #app-container #input-section,
+  #app-container #list-container {
+    max-width: 640px;
+    margin: auto; }
+  #app-container #list-container,
+  #app-container #input-section {
+    box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2); }
+  #app-container header {
+    background: #222930;
+    background-image: url(../images/header-bg.png); }
+    #app-container header #input-section {
+      border-bottom: none; }
+    #app-container header nav button {
+      width: 45.5%; }
+  #app-container #list-container {
+    background: #fff; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -26,7 +26,7 @@
         }
     }
     header {
-        background: $color_dlx_dark;
+        background-color: $color_dlx_dark;
         color: $color_base_white;
         overflow: hidden;
         text-align: center;
@@ -135,6 +135,39 @@
             cursor: pointer;
             display: block;
             padding: 10px 40px;
+        }
+    }
+}
+
+@include screenSize($desktop) {
+    body {
+        background: url(../images/bg1.jpg);
+    }
+    #app-container {
+        header nav,
+        #input-section,
+        #list-container {
+            max-width: 640px;
+            margin: auto;
+        }
+        #list-container,
+        #input-section {
+            box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2);
+        }
+        header {
+            background: $color_dlx_dark;
+            background-image: url(../images/header-bg.png);
+            #input-section {
+                border-bottom: none;
+            }
+            nav {
+                button {
+                    width: 45.5%;
+                }
+            }
+        }
+        #list-container {
+            background: $color_base_white;
         }
     }
 }
