@@ -35,7 +35,7 @@ $(document).ready(function() {
             // Build task HTML
             taskHTML += '<li>';
             taskHTML += '<input type="checkbox" id="' + text_id + '">';
-            taskHTML += '<label for="' + text_id + '">';
+            taskHTML += '<label class="testTask" for="' + text_id + '">';
             taskHTML += '<span class="complete"></span>';
             taskHTML += taskText;
             taskHTML += '</label>';
@@ -82,6 +82,60 @@ $(document).ready(function() {
             }
         });
 
+        /***  This moves completed/clicked tasks from the Todo List to the Completed List  ***/
+        $('ul#todo-list').on('click', '.testTask', function(event) {
+            
+            // when the <lable> is clicked inside of the #todo-list, temp becomes the <li> that surrounds it.
+            var temp = this.closest('li');
+            
+            if (temp != "") {
+                //.prepend the #todo-list task to top of the #completed-list page after 1200ms of being clicked.
+                setTimeout(
+                    function(){ 
+                        $('#completed-list').prepend(temp); }, 
+                        1200
+                );
+                
+            }
+            
+        });
+
+        /***  This removes tasks that have had their .remove button clicked.  ***/
+        $('ul#todo-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            
+            setTimeout(
+                    function(){ 
+                        temp.remove(); }, 
+                        1200
+                );
+        });
+
+        /*** Basically the opposite of the above for completion clicks, but moves from completed to todo list ***/
+        $('ul#completed-list').on('click', '.testTask', function(event) {
+            var temp = this.closest('li');
+            
+            if (temp != "") {
+                
+                setTimeout(
+                    function(){ 
+                        $('#todo-list').prepend(temp); }, 
+                        1200
+                );
+                
+            }
+        });
+
+        /***  This removes tasks that have had their .remove button clicked.  ***/
+        $('ul#completed-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            
+            setTimeout(
+                    function(){ 
+                        temp.remove(); }, 
+                        1200
+                );
+        });
 
         /*** Objectives / Plan:
 
