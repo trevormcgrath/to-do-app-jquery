@@ -6,6 +6,7 @@ $(document).ready(function() {
         var todoTasks = [],
             completedTasks = [],
             //DOM Elements
+            $inputSection = $('#input-section'),
             $taskInput = $("#task-input"),
             $taskSubmit = $('#task-submit'),
 
@@ -26,25 +27,25 @@ $(document).ready(function() {
         $taskSubmit.click(function(event) {
 
             var input = $taskInput.find("input"),
-                temp = input.val().trim(),
-                temp_id = temp.replace(/\s+/g, '-').toLowerCase(),
+                taskText = input.val().trim(),
+                text_id = taskText.replace(/\s+/g, '-').toLowerCase(),
                 _$todoList = $('#todo-list'),
                 taskHTML = "";
 
-            console.log(temp_id);
-
             // Build task HTML
             taskHTML += '<li>';
-            taskHTML += '<input type="checkbox" id="' + temp_id + '">';
-            taskHTML += '<label for="' + temp_id + '">';
+            taskHTML += '<input type="checkbox" id="' + text_id + '">';
+            taskHTML += '<label for="' + text_id + '">';
             taskHTML += '<span class="complete"></span>';
-            taskHTML += temp;
+            taskHTML += taskText;
             taskHTML += '</label>';
             taskHTML += '<span class="remove"></span>';
             taskHTML += '</li>';
 
-            //Add task to top of list
-            _$todoList.prepend(taskHTML);
+            if (taskText != "") {
+                //Add task to top of list
+                _$todoList.prepend(taskHTML);
+            }
 
             //Reset input value
             input.val("");
@@ -55,7 +56,8 @@ $(document).ready(function() {
         - Display active task list
         ***/
         $listTabBtns.click(function(e) {
-            var $activeTab = $(this);
+            var $activeTab = $(this),
+                taskInput = $taskInput.find('input');
             // remove active class
             $listTabBtns.removeClass('active');
             // remove visible class from both list-containers
@@ -67,9 +69,15 @@ $(document).ready(function() {
             if ($activeTab.text().toLowerCase() === 'todo') {
                 // add 'visible' class
                 $todoList.addClass('visible');
+                // Display Input Section
+                $inputSection.slideDown(150);
+                // Focus on Task Input
+                taskInput.focus();
             } else {
                 // add class to 'completed' tab
                 $completedList.addClass('visible');
+                // Hide Input Section
+                $inputSection.slideUp(150);
 
             }
         });
