@@ -123,7 +123,7 @@ $(document).ready(function() {
         function checkmarkButton(temp) {
             if (temp != "") {
 
-                temp.slideUp(200);
+                $(temp).slideUp(230);
                 setTimeout(
                     function() {
                         if (pageSwitch === true) {
@@ -133,7 +133,7 @@ $(document).ready(function() {
                             pageSwitch=true;
                             $('#todo-list').prepend(temp);
                         }
-                        temp.show();
+                        $(temp).show();
                     },
                     250
                 );
@@ -153,7 +153,7 @@ $(document).ready(function() {
         });
 
         function removeButton(temp) {
-            temp.slideUp(200);
+            $(temp).slideUp(230);
             setTimeout(
                 function() {
                     temp.remove();
