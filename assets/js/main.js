@@ -115,6 +115,8 @@ $(document).ready(function() {
                 setTimeout(
                     function() {
 
+                        console.log($('todo-list-btn').hasClass('.active'));
+
                         if ( $('todo-list-btn').hasClass('.active') ) {
                             console.log('test 1');
                             $('#completed-list').prepend(temp);
