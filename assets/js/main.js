@@ -114,13 +114,24 @@ $(document).ready(function() {
                 $(temp).slideUp(230);
                 setTimeout(
                     function() {
-                        if (pageSwitch === true) {
-                            pageSwitch=false;
+
+                        if ( $('todo-list-btn').hasClass('.active') ) {
                             $('#completed-list').prepend(temp);
                         } else {
-                            pageSwitch=true;
                             $('#todo-list').prepend(temp);
                         }
+
+
+                        /*if (pageSwitch === true) {
+                            console.log(pageSwitch);
+                            pageSwitch=false;
+                            $('#completed-list').prepend(temp);
+                            pageSwitch=true;
+                        } else {
+                            pageSwitch=true;
+                            console.log(pageSwitch);
+                            $('#todo-list').prepend(temp);
+                        }*/
                         $(temp).show();
                     },
                     250
@@ -137,6 +148,12 @@ $(document).ready(function() {
                 250
             );
         }
+
+        var $lists = $('ul#todo-list').add('ul#completed-list');
+        /  Remove button for #todo-list tasks  /
+        $lists.on('click', '.remove', function(event) {
+            removeButton();
+        });
 
 
         /*** Objectives / Plan:
