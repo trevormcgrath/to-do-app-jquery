@@ -196,5 +196,14 @@ body {
                 }
             }
         }
+        #todo-container {
+            li {
+                .remove,
+                .complete {
+                    display: block;
+                    opacity: .5;
+                }
+            }
+        }
     }
 }

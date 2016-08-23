@@ -553,6 +553,10 @@ body {
   #app-container #input-section form input[type='text'] {
     margin-bottom: 10px; }
   #app-container #input-section form button {
-    font-size: 14px; } }
+    font-size: 14px; }
+  #app-container #todo-container li .remove,
+  #app-container #todo-container li .complete {
+    display: block;
+    opacity: .5; } }
 
 /*# sourceMappingURL=main.css.map */
