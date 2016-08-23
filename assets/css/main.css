@@ -557,6 +557,9 @@ body {
   #app-container #todo-container li .remove,
   #app-container #todo-container li .complete {
     display: block;
-    opacity: .5; } }
+    opacity: .5; }
+    #app-container #todo-container li .remove:active,
+    #app-container #todo-container li .complete:active {
+      opacity: 1; } }
 
 /*# sourceMappingURL=main.css.map */
