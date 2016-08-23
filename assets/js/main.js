@@ -88,36 +88,24 @@ $(document).ready(function() {
         $('ul#todo-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
             checkmarkButton (temp);
-
-            /*if (temp != "") {
-
-                $('.taskLabel').slideUp(230);
-                setTimeout(
-                    function() {
-                        $('#completed-list').prepend(temp);
-                        $('.taskLabel').show();
-                    },
-                    250
-                );
-            }*/
         });
 
         /*** Puts a task back onto the Todo List task list. ***/
         $('ul#completed-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
             checkmarkButton (temp);
+        });
 
-            /*if (temp != "") {
+        /***  Remove button for #todo-list tasks  ***/
+        $('ul#todo-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            removeButton(temp);
+        });
 
-                $('.taskLabel').slideUp(230);
-                setTimeout(
-                    function() {
-                        $('#todo-list').prepend(temp);
-                        $('.taskLabel').show();
-                    },
-                    250
-                );
-            }*/
+        /***  Remove button for #completed-list tasks  ***/
+        $('ul#completed-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            removeButton(temp);
         });
 
         function checkmarkButton(temp) {
@@ -139,18 +127,6 @@ $(document).ready(function() {
                 );
             }
         }
-
-        /***  Remove button for #todo-list tasks  ***/
-        $('ul#todo-list').on('click', '.remove', function(event) {
-            var temp = this.closest('li');
-            removeButton(temp);
-        });
-
-        /***  Remove button for #completed-list tasks  ***/
-        $('ul#completed-list').on('click', '.remove', function(event) {
-            var temp = this.closest('li');
-            removeButton(temp);
-        });
 
         function removeButton(temp) {
             $(temp).slideUp(230);
