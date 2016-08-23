@@ -5,6 +5,7 @@ $(document).ready(function() {
         /* Global Variables */
         var todoTasks = [],
             completedTasks = [],
+            pageSwitch = true,
             //DOM Elements
             $inputSection = $('#input-section'),
             $taskInput = $("#task-input"),
@@ -36,7 +37,7 @@ $(document).ready(function() {
             // Build task HTML
             taskHTML += '<li>';
             taskHTML += '<input type="checkbox" id="' + text_id + '">';
-            taskHTML += '<label class="testTask" for="' + text_id + '">';
+            taskHTML += '<label class="taskLabel" for="' + text_id + '">';
             taskHTML += '<span class="complete"></span>';
             taskHTML += taskText;
             taskHTML += '</label>';
@@ -83,65 +84,84 @@ $(document).ready(function() {
             }
         });
 
-        /***  This moves completed/clicked tasks from the Todo List to the Completed List  ***/
-        $('ul#todo-list').on('click', '.testTask', function(event) {
-
-            // when the <lable> is clicked inside of the #todo-list, temp becomes the <li> that surrounds it.
+        /***  Puts a task into the Completed Task list.  ***/
+        $('ul#todo-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
 
             if (temp != "") {
-                //.prepend the #todo-list task to top of the #completed-list page after 250ms of being clicked.
+
+                $('.taskLabel').slideUp(230);
                 setTimeout(
                     function() {
-
                         $('#completed-list').prepend(temp);
+                        $('.taskLabel').show();
                     },
                     250
                 );
-
             }
-
         });
 
-        /***  This removes tasks that have had their .remove button clicked.  ***/
-        $('ul#todo-list').on('click', '.remove', function(event) {
-            var temp = this.closest('li');
-
-            setTimeout(
-                function() {
-                    temp.remove();
-                },
-                250
-            );
-        });
-
-        /*** Basically the opposite of the above for completion clicks, but moves from completed to todo list ***/
-        $('ul#completed-list').on('click', '.testTask', function(event) {
+        /*** Puts a task back onto the Todo List task list. ***/
+        $('ul#completed-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
 
             if (temp != "") {
 
+                $('.taskLabel').slideUp(230);
                 setTimeout(
                     function() {
                         $('#todo-list').prepend(temp);
+                        $('.taskLabel').show();
                     },
                     250
                 );
-
             }
         });
 
-        /***  This removes tasks that have had their .remove button clicked.  ***/
-        $('ul#completed-list').on('click', '.remove', function(event) {
-            var temp = this.closest('li');
+        /***  Remove button for #todo-list tasks  ***/
+        $('ul#todo-list').on('click', '.remove', function(event) {
+            removeButton();
+        });
 
+        /***  Remove button for #completed-list tasks  ***/
+        $('ul#completed-list').on('click', '.remove', function(event) {
+            removeButton();
+        });
+
+        /*function checkmarkButton () {
+            var temp = $('.taskLabel').closest('li');
+
+            if (temp != "") {
+
+                $('.taskLabel').slideUp(200);
+                setTimeout(
+                    function() {
+                        if (pageSwitch === true) {
+                            pageSwitch=false;
+                            $('#completed-list').prepend(temp);
+                        } else {
+                            pageSwitch=true;
+                            $('#todo-list').prepend(temp);
+                        }
+                        $('.taskLabel').show();
+                    },
+                    250
+                );
+            }
+        }*/
+
+        function removeButton (){
+            var temp = $('.taskLabel').closest('li');
+
+            $('.taskLabel').slideUp(200);
             setTimeout(
                 function() {
                     temp.remove();
                 },
                 250
             );
-        });
+        }
+
 
         /*** Objectives / Plan:
 
