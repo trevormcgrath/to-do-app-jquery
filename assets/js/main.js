@@ -76,10 +76,10 @@ $(document).ready(function() {
                 // Focus on Task Input
                 taskInput.focus();
             } else {
-                // add class to 'completed' tab
-                $completedList.addClass('visible');
                 // Hide Input Section
                 $inputSection.slideUp(animationSpeed);
+                // add class to 'completed' tab
+                $completedList.addClass('visible');
 
             }
         });
@@ -150,7 +150,7 @@ $(document).ready(function() {
             }
         }*/
 
-        function removeButton (){
+        function removeButton() {
             var temp = $('.taskLabel').closest('li');
 
             $('.taskLabel').slideUp(200);

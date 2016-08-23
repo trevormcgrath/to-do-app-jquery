@@ -43,6 +43,7 @@ body {
         text-align: center;
         h1 {
             text-align: center;
+            margin: 3.25% 0;
         }
         nav {
             button {
@@ -61,37 +62,35 @@ body {
                 }
             }
         }
-        #input-section {
-            background: $color_base_white;
-            border-bottom: none;
-            input,
-            button {
-                border: 1px solid $color_base_lightGrey;
-                border-radius: 2px;
-                padding: 6px 10px;
-            }
-            button {
-                @include hoverHighlight($color_base_green);
-                background: $color_base_green;
-                border-color: transparent;
-                color: $color_base_white;
-            }
-            form {
-                padding: 20px 0;
-                input {
-                    width: 70%;
-                }
-            }
-        }
     }
     #list-container {
         background: $color_base_white;
         overflow: hidden;
         padding: 0 20px;
-    }
-    #list-container,
-    #input-section {
         box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2);
+    }
+    #input-section {
+        background: $color_base_white;
+        border-bottom: none;
+        text-align: center;
+        input[type="text"],
+        button {
+            border: 1px solid $color_base_lightGrey;
+            border-radius: 2px;
+            padding: 6px 10px;
+        }
+        button {
+            @include hoverHighlight($color_base_green);
+            background: $color_base_green;
+            border-color: transparent;
+            color: $color_base_white;
+        }
+        form {
+            padding: 20px 0;
+            input[type="text"] {
+                width: 70%;
+            }
+        }
     }
     #todo-container,
     #completed-container {
@@ -99,7 +98,7 @@ body {
         &.visible {
             display: block;
         }
-        input {
+        input[type="checkbox"] {
             display: none;
             position: absolute;
             &:checked {
@@ -170,21 +169,31 @@ body {
             max-width: 100%;
         }
         header {
+            h1 {
+                font-size: 25px;
+                margin: 5% 0;
+            }
             nav {
                 button {
                     width: 45.5%;
+                    font-size: 14px;
                 }
             }
         }
         #input-section {
-            button,
-            input[type='text'] {
-                display: block;
-                width: 95%;
-                margin: auto;
-            }
-            input[type='text'] {
-                margin-bottom: 10px;
+            form {
+                button,
+                input[type='text'] {
+                    display: block;
+                    width: 100%;
+                    margin: auto;
+                }
+                input[type='text'] {
+                    margin-bottom: 10px;
+                }
+                button {
+                    font-size: 14px;
+                }
             }
         }
     }

@@ -430,7 +430,8 @@ body {
   overflow: hidden;
   text-align: center; }
   #app-container header h1 {
-    text-align: center; }
+    text-align: center;
+    margin: 3.25% 0; }
   #app-container header nav button {
     background: #656d83;
     border: 2px solid #fff;
@@ -445,33 +446,32 @@ body {
     #app-container header nav button.active {
       background: #e64b4b;
       color: #fff; }
-  #app-container header #input-section {
-    background: #fff;
-    border-bottom: none; }
-    #app-container header #input-section input,
-    #app-container header #input-section button {
-      border: 1px solid #ddd;
-      border-radius: 2px;
-      padding: 6px 10px; }
-    #app-container header #input-section button {
-      background: #23CE6B;
-      border-color: transparent;
-      color: #fff; }
-      #app-container header #input-section button:hover {
-        background: #2fdc78; }
-    #app-container header #input-section form {
-      padding: 20px 0; }
-      #app-container header #input-section form input {
-        width: 70%; }
 
 #app-container #list-container {
   background: #fff;
   overflow: hidden;
-  padding: 0 20px; }
-
-#app-container #list-container,
-#app-container #input-section {
+  padding: 0 20px;
   box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.2); }
+
+#app-container #input-section {
+  background: #fff;
+  border-bottom: none;
+  text-align: center; }
+  #app-container #input-section input[type="text"],
+  #app-container #input-section button {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 6px 10px; }
+  #app-container #input-section button {
+    background: #23CE6B;
+    border-color: transparent;
+    color: #fff; }
+    #app-container #input-section button:hover {
+      background: #2fdc78; }
+  #app-container #input-section form {
+    padding: 20px 0; }
+    #app-container #input-section form input[type="text"] {
+      width: 70%; }
 
 #app-container #todo-container,
 #app-container #completed-container {
@@ -479,16 +479,16 @@ body {
   #app-container #todo-container.visible,
   #app-container #completed-container.visible {
     display: block; }
-  #app-container #todo-container input,
-  #app-container #completed-container input {
+  #app-container #todo-container input[type="checkbox"],
+  #app-container #completed-container input[type="checkbox"] {
     display: none;
     position: absolute; }
-    #app-container #todo-container input:checked + label,
-    #app-container #completed-container input:checked + label {
+    #app-container #todo-container input[type="checkbox"]:checked + label,
+    #app-container #completed-container input[type="checkbox"]:checked + label {
       color: #ddd;
       text-decoration: line-through; }
-      #app-container #todo-container input:checked + label span,
-      #app-container #completed-container input:checked + label span {
+      #app-container #todo-container input[type="checkbox"]:checked + label span,
+      #app-container #completed-container input[type="checkbox"]:checked + label span {
         display: inline-block; }
   #app-container #todo-container li,
   #app-container #completed-container li {
@@ -539,14 +539,20 @@ body {
   #app-container #input-section,
   #app-container #list-container {
     max-width: 100%; }
+  #app-container header h1 {
+    font-size: 25px;
+    margin: 5% 0; }
   #app-container header nav button {
-    width: 45.5%; }
-  #app-container #input-section button,
-  #app-container #input-section input[type='text'] {
+    width: 45.5%;
+    font-size: 14px; }
+  #app-container #input-section form button,
+  #app-container #input-section form input[type='text'] {
     display: block;
-    width: 95%;
+    width: 100%;
     margin: auto; }
-  #app-container #input-section input[type='text'] {
-    margin-bottom: 10px; } }
+  #app-container #input-section form input[type='text'] {
+    margin-bottom: 10px; }
+  #app-container #input-section form button {
+    font-size: 14px; } }
 
 /*# sourceMappingURL=main.css.map */
