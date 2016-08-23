@@ -87,8 +87,9 @@ $(document).ready(function() {
         /***  Puts a task into the Completed Task list.  ***/
         $('ul#todo-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
+            checkmarkButton (temp);
 
-            if (temp != "") {
+            /*if (temp != "") {
 
                 $('.taskLabel').slideUp(230);
                 setTimeout(
@@ -98,14 +99,15 @@ $(document).ready(function() {
                     },
                     250
                 );
-            }
+            }*/
         });
 
         /*** Puts a task back onto the Todo List task list. ***/
         $('ul#completed-list').on('click', '.taskLabel', function(event) {
             var temp = this.closest('li');
+            checkmarkButton (temp);
 
-            if (temp != "") {
+            /*if (temp != "") {
 
                 $('.taskLabel').slideUp(230);
                 setTimeout(
@@ -115,25 +117,13 @@ $(document).ready(function() {
                     },
                     250
                 );
-            }
+            }*/
         });
 
-        /***  Remove button for #todo-list tasks  ***/
-        $('ul#todo-list').on('click', '.remove', function(event) {
-            removeButton();
-        });
-
-        /***  Remove button for #completed-list tasks  ***/
-        $('ul#completed-list').on('click', '.remove', function(event) {
-            removeButton();
-        });
-
-        /*function checkmarkButton () {
-            var temp = $('.taskLabel').closest('li');
-
+        function checkmarkButton(temp) {
             if (temp != "") {
 
-                $('.taskLabel').slideUp(200);
+                temp.slideUp(200);
                 setTimeout(
                     function() {
                         if (pageSwitch === true) {
@@ -143,17 +133,27 @@ $(document).ready(function() {
                             pageSwitch=true;
                             $('#todo-list').prepend(temp);
                         }
-                        $('.taskLabel').show();
+                        temp.show();
                     },
                     250
                 );
             }
-        }*/
+        }
 
-        function removeButton() {
-            var temp = $('.taskLabel').closest('li');
+        /***  Remove button for #todo-list tasks  ***/
+        $('ul#todo-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            removeButton(temp);
+        });
 
-            $('.taskLabel').slideUp(200);
+        /***  Remove button for #completed-list tasks  ***/
+        $('ul#completed-list').on('click', '.remove', function(event) {
+            var temp = this.closest('li');
+            removeButton(temp);
+        });
+
+        function removeButton(temp) {
+            temp.slideUp(200);
             setTimeout(
                 function() {
                     temp.remove();
