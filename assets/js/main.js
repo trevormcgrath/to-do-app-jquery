@@ -145,7 +145,7 @@ $(document).ready(function() {
             $(temp).slideUp(230);
             setTimeout(
                 function() {
-                    temp.remove();
+                    $(temp).remove();
                 },
                 250
             );
