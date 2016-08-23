@@ -411,7 +411,7 @@ body {
   list-style: none; }
 
 #app-container button {
-  font-weight: 600px;
+  font-weight: 600;
   font-family: Montserrat, "Arial Black", san-serif;
   text-transform: uppercase; }
   #app-container button:active, #app-container button:focus {
