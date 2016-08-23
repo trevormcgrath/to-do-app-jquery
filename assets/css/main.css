@@ -555,11 +555,15 @@ body {
   #app-container #input-section form button {
     font-size: 14px; }
   #app-container #todo-container li .remove,
-  #app-container #todo-container li .complete {
+  #app-container #todo-container li .complete,
+  #app-container #completed-container li .remove,
+  #app-container #completed-container li .complete {
     display: block;
     opacity: .5; }
     #app-container #todo-container li .remove:active,
-    #app-container #todo-container li .complete:active {
+    #app-container #todo-container li .complete:active,
+    #app-container #completed-container li .remove:active,
+    #app-container #completed-container li .complete:active {
       opacity: 1; } }
 
 /*# sourceMappingURL=main.css.map */

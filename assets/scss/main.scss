@@ -196,7 +196,8 @@ body {
                 }
             }
         }
-        #todo-container {
+        #todo-container,
+        #completed-container {
             li {
                 .remove,
                 .complete {
