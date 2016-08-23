@@ -115,16 +115,12 @@ $(document).ready(function() {
                 setTimeout(
                     function() {
 
-                        console.log($('#todo-list-btn').hasClass('.active'));
+                        console.log($('#todo-list-btn').hasClass('active'));
 
-                        if ( $('#todo-list-btn').hasClass('.active') ) {
-                            console.log('test 1');
+                        if ( $('#todo-list-btn').hasClass('active') ) {
                             $('#completed-list').prepend(temp);
-                            
                         } else {
-                            console.log('test 2');
                             $('#todo-list').prepend(temp);
-                            
                         }
 
 
