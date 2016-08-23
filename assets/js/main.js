@@ -116,9 +116,13 @@ $(document).ready(function() {
                     function() {
 
                         if ( $('todo-list-btn').hasClass('.active') ) {
+                            console.log('test 1');
                             $('#completed-list').prepend(temp);
+                            
                         } else {
+                            console.log('test 2');
                             $('#todo-list').prepend(temp);
+                            
                         }
 
 
