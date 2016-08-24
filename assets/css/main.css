@@ -508,15 +508,15 @@ body {
       width: 20px;
       vertical-align: bottom;
       z-index: 99;
-      top: 10px; }
+      top: 11px; }
     #app-container #todo-container li .complete,
     #app-container #completed-container li .complete {
       background-image: url(../images/checkmark.png);
-      left: 10px; }
+      left: 0; }
     #app-container #todo-container li .remove,
     #app-container #completed-container li .remove {
       background-image: url(../images/remove.png);
-      right: 10px; }
+      right: 0; }
     #app-container #todo-container li:hover .complete,
     #app-container #todo-container li:hover .remove,
     #app-container #completed-container li:hover .complete,
@@ -526,7 +526,8 @@ body {
   #app-container #completed-container label {
     cursor: pointer;
     display: block;
-    padding: 10px 40px; }
+    padding: 10px 0 10px 30px;
+    margin-right: 30px; }
 
 @media screen and (min-width: 640px) {
   #app-container header nav,
