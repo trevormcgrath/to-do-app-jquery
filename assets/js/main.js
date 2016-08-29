@@ -6,6 +6,7 @@ $(document).ready(function() {
         var active = 'active',
             visible = 'visible',
             animationSpeed = 250,
+
             //DOM Elements
             $inputSection = $('#input-section'),
             $taskInput = $("#task-input"),
@@ -20,19 +21,16 @@ $(document).ready(function() {
             $todoListBtn = $('#todo-list-btn'),
             $listTabBtns = $('header nav button'),
             //Local Storage
-            storedTasksCount = Number(localStorage.getItem('todoCount')) || 0,
-            todoCount = storedTasksCount,
-            task_id = 'todoTask-',
-
-            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [],
+            taskCount = 0;
 
         /* End globals */
 
         function fetchStoredTasks() {
-            for (var i = 0; i <= storedTasksCount; i++) {
-                $todoList.prepend(localStorage.getItem(task_id + i));
-            }
-
+            taskCount = storedTasks.length;
+            $.each(storedTasks, function(i) {
+                createTask(storedTasks[i]);
+            });
             console.log(storedTasks);
         }
 
@@ -44,7 +42,7 @@ $(document).ready(function() {
         function checkmarkButton(_task) {
             //Get task li element
             _task = getTaskLi(_task.target);
-            if (_task != "") {
+            if (_task !== "") {
                 $(_task).slideUp(230);
                 setTimeout(
                     function() {
@@ -62,10 +60,6 @@ $(document).ready(function() {
         function removeButton(_task) {
             //Get task li element
             _task = getTaskLi(_task.target);
-            //Find task in localStorage
-            var id = _task.find('input').attr('id');
-            //Remove task from localStorage
-            localStorage.removeItem(id);
 
             //slide up task
             $(_task).slideUp(230);
@@ -85,30 +79,27 @@ $(document).ready(function() {
         //Stopping the normal form behavior.
         $taskInput.submit(function(e) { e.preventDefault(); });
 
-        function createTask() {
-            var html = "",
-                _id;
+        function createTask(task) {
+            var html = "";
+            taskCount = storedTasks.length;
+            task.id = task.taskCount;
 
-            //Number of stored tasks
-            storedTasksCount += 1;
-            //Set Task ID
-            _id = task_id + storedTasksCount;
             // Build task HTML
             html += '<li>';
-            html += '<input type="checkbox" id="' + _id + '">';
-            html += '<label class="taskLabel" for="' + _id + '">';
+            html += '<input type="checkbox" id="' + task.id + '">';
+            html += '<label class="taskLabel" for="' + task.id + '">';
             html += '<span class="complete"></span>';
-            html += taskText;
+            html += task.todo;
             html += '</label>';
             html += '<span class="remove"></span>';
             html += '</li>';
 
-            //Add to Stored Count
-            todoCount = localStorage.setItem('todoCount', storedTasksCount);
-            //Store new task on local storage
-            localStorage.setItem(_id, taskHTML);
             //Add new task to DOM
-            $todoList.prepend(localStorage.getItem(_id));
+            if (!task.complete) {
+                $todoList.prepend(html);
+            } else {
+                $completedList.prepend(html);
+            }
         }
 
         /*** $taskSubmit:
@@ -116,32 +107,18 @@ $(document).ready(function() {
         $taskSubmit.click(function() {
 
             var input = $taskInput.find("input"),
-                taskText = input.val().trim(),
-                taskHTML = "",
-                taskItem,
-                _id;
+                todo = input.val().trim(),
+                task = {};
 
-            if (taskText != "") {
-                //Number of stored tasks
-                storedTasksCount += 1;
-                //Set Task ID
-                _id = task_id + storedTasksCount;
-                // Build task HTML
-                taskHTML += '<li>';
-                taskHTML += '<input type="checkbox" id="' + _id + '">';
-                taskHTML += '<label class="taskLabel" for="' + _id + '">';
-                taskHTML += '<span class="complete"></span>';
-                taskHTML += taskText;
-                taskHTML += '</label>';
-                taskHTML += '<span class="remove"></span>';
-                taskHTML += '</li>';
+            if (todo !== "") {
+                task.todo = todo;
+                task.id = Math.random() * 1000;
 
-                //Add to Stored Count
-                todoCount = localStorage.setItem('todoCount', storedTasksCount);
-                //Store new task on local storage
-                localStorage.setItem(_id, taskHTML);
+                storedTasks.push(task);
                 //Add new task to DOM
-                $todoList.prepend(localStorage.getItem(_id));
+                createTask(task);
+
+                console.log(storedTasks);
             }
 
             //Reset input value
