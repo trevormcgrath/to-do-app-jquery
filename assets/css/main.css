@@ -479,17 +479,6 @@ body {
   #app-container #todo-container.visible,
   #app-container #completed-container.visible {
     display: block; }
-  #app-container #todo-container input[type="checkbox"],
-  #app-container #completed-container input[type="checkbox"] {
-    display: none;
-    position: absolute; }
-    #app-container #todo-container input[type="checkbox"]:checked + label,
-    #app-container #completed-container input[type="checkbox"]:checked + label {
-      color: #ddd;
-      text-decoration: line-through; }
-      #app-container #todo-container input[type="checkbox"]:checked + label span,
-      #app-container #completed-container input[type="checkbox"]:checked + label span {
-        display: inline-block; }
   #app-container #todo-container li,
   #app-container #completed-container li {
     border-top: 1px solid #ddd;
@@ -502,13 +491,15 @@ body {
       background-size: cover;
       background-repeat: no-repeat;
       cursor: pointer;
-      display: none;
+      display: inline-block;
       height: 20px;
       position: absolute;
       width: 20px;
       vertical-align: bottom;
       z-index: 99;
-      top: 11px; }
+      top: 11px;
+      opacity: 0;
+      transition: opacity .1s ease-in; }
     #app-container #todo-container li .complete,
     #app-container #completed-container li .complete {
       background-image: url(../images/checkmark.png);
@@ -517,11 +508,30 @@ body {
     #app-container #completed-container li .remove {
       background-image: url(../images/remove.png);
       right: 0; }
+    #app-container #todo-container li input[type="checkbox"],
+    #app-container #completed-container li input[type="checkbox"] {
+      display: none;
+      position: absolute; }
+      #app-container #todo-container li input[type="checkbox"]:checked + label,
+      #app-container #completed-container li input[type="checkbox"]:checked + label {
+        color: #ddd;
+        text-decoration: line-through; }
+        #app-container #todo-container li input[type="checkbox"]:checked + label .complete,
+        #app-container #completed-container li input[type="checkbox"]:checked + label .complete {
+          opacity: 1; }
     #app-container #todo-container li:hover .complete,
     #app-container #todo-container li:hover .remove,
     #app-container #completed-container li:hover .complete,
     #app-container #completed-container li:hover .remove {
-      display: inline-block; }
+      opacity: .5; }
+      #app-container #todo-container li:hover .complete:hover,
+      #app-container #todo-container li:hover .remove:hover,
+      #app-container #completed-container li:hover .complete:hover,
+      #app-container #completed-container li:hover .remove:hover {
+        opacity: 1; }
+    #app-container #todo-container li:hover label:hover .complete,
+    #app-container #completed-container li:hover label:hover .complete {
+      opacity: 1; }
   #app-container #todo-container label,
   #app-container #completed-container label {
     cursor: pointer;

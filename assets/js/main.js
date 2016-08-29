@@ -3,75 +3,170 @@ $(document).ready(function() {
     var todoApp = (function($) {
 
         /* Global Variables */
-        var todoTasks = [],
-            completedTasks = [],
-            pageSwitch = true,
+        var active = 'active',
+            visible = 'visible',
+            animationSpeed = 250,
             //DOM Elements
             $inputSection = $('#input-section'),
             $taskInput = $("#task-input"),
             $taskSubmit = $('#task-submit'),
             //Lists
-            $todoList = $('#todo-container'),
-            $completedList = $('#completed-container'),
-            $taskLists = $todoList.add($completedList),
+            $todoListCont = $('#todo-container'),
+            $completedListCont = $('#completed-container'),
+            $taskLists = $todoListCont.add($completedListCont),
+            $todoList = $('#todo-list'),
+            $completedList = $('#completed-list'),
             //Buttons
             $todoListBtn = $('#todo-list-btn'),
-            $completedListBtn = $('#completed-list-btn'),
             $listTabBtns = $('header nav button'),
-            animationSpeed = 150;
+            //Local Storage
+            storedTasksCount = Number(localStorage.getItem('todoCount')) || 0,
+            todoCount = storedTasksCount,
+            task_id = 'todoTask-',
+
+            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
         /* End globals */
 
-        $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
+        function fetchStoredTasks() {
+            for (var i = 0; i <= storedTasksCount; i++) {
+                $todoList.prepend(localStorage.getItem(task_id + i));
+            }
 
+            console.log(storedTasks);
+        }
+
+        function getTaskLi(target) {
+            //Get task li element
+            return $(target).closest('li');
+        }
+
+        function checkmarkButton(_task) {
+            //Get task li element
+            _task = getTaskLi(_task.target);
+            if (_task != "") {
+                $(_task).slideUp(230);
+                setTimeout(
+                    function() {
+                        if ($todoListBtn.hasClass(active)) {
+                            $completedList.prepend(_task);
+                        } else {
+                            $todoList.prepend(_task);
+                        }
+
+                        $(_task).show();
+                    }, animationSpeed);
+            }
+        }
+
+        function removeButton(_task) {
+            //Get task li element
+            _task = getTaskLi(_task.target);
+            //Find task in localStorage
+            var id = _task.find('input').attr('id');
+            //Remove task from localStorage
+            localStorage.removeItem(id);
+
+            //slide up task
+            $(_task).slideUp(230);
+            //delay task removal
+            setTimeout(
+                function() {
+                    //remove task
+                    $(_task).remove();
+                },
+                animationSpeed);
+        }
+
+        //Fetch Todos
+        fetchStoredTasks();
+
+
+        //Stopping the normal form behavior.
+        $taskInput.submit(function(e) { e.preventDefault(); });
+
+        function createTask() {
+            var html = "",
+                _id;
+
+            //Number of stored tasks
+            storedTasksCount += 1;
+            //Set Task ID
+            _id = task_id + storedTasksCount;
+            // Build task HTML
+            html += '<li>';
+            html += '<input type="checkbox" id="' + _id + '">';
+            html += '<label class="taskLabel" for="' + _id + '">';
+            html += '<span class="complete"></span>';
+            html += taskText;
+            html += '</label>';
+            html += '<span class="remove"></span>';
+            html += '</li>';
+
+            //Add to Stored Count
+            todoCount = localStorage.setItem('todoCount', storedTasksCount);
+            //Store new task on local storage
+            localStorage.setItem(_id, taskHTML);
+            //Add new task to DOM
+            $todoList.prepend(localStorage.getItem(_id));
+        }
 
         /*** $taskSubmit:
         Add a task from input into the todoTasks array, then clear the input. ***/
-        $taskSubmit.click(function(event) {
+        $taskSubmit.click(function() {
 
             var input = $taskInput.find("input"),
                 taskText = input.val().trim(),
-                text_id = taskText.replace(/\s+/g, '-').toLowerCase(),
-                _$todoList = $('#todo-list'),
-                taskHTML = "";
-
-            // Build task HTML
-            taskHTML += '<li>';
-            taskHTML += '<input type="checkbox" id="' + text_id + '">';
-            taskHTML += '<label class="taskLabel" for="' + text_id + '">';
-            taskHTML += '<span class="complete"></span>';
-            taskHTML += taskText;
-            taskHTML += '</label>';
-            taskHTML += '<span class="remove"></span>';
-            taskHTML += '</li>';
+                taskHTML = "",
+                taskItem,
+                _id;
 
             if (taskText != "") {
-                //Add task to top of list
-                _$todoList.prepend(taskHTML);
+                //Number of stored tasks
+                storedTasksCount += 1;
+                //Set Task ID
+                _id = task_id + storedTasksCount;
+                // Build task HTML
+                taskHTML += '<li>';
+                taskHTML += '<input type="checkbox" id="' + _id + '">';
+                taskHTML += '<label class="taskLabel" for="' + _id + '">';
+                taskHTML += '<span class="complete"></span>';
+                taskHTML += taskText;
+                taskHTML += '</label>';
+                taskHTML += '<span class="remove"></span>';
+                taskHTML += '</li>';
+
+                //Add to Stored Count
+                todoCount = localStorage.setItem('todoCount', storedTasksCount);
+                //Store new task on local storage
+                localStorage.setItem(_id, taskHTML);
+                //Add new task to DOM
+                $todoList.prepend(localStorage.getItem(_id));
             }
 
             //Reset input value
-            input.val("");
+            input.val("").focus();
         });
+
 
         /*** $listTabBtns
         - Add 'active' class to list tab when clicked
         - Display active task list
         ***/
-        $listTabBtns.click(function(e) {
+        $listTabBtns.click(function() {
             var $activeTab = $(this),
                 taskInput = $taskInput.find('input');
             // remove active class
-            $listTabBtns.removeClass('active');
+            $listTabBtns.removeClass(active);
             // remove visible class from both list-containers
-            $todoList.add($completedList).removeClass('visible');
+            $todoListCont.add($completedListCont).removeClass(visible);
             // add active class to clicked tab
-            $activeTab.addClass('active');
+            $activeTab.addClass(active);
 
             // if active tab is "Todo"
             if ($activeTab.text().toLowerCase() === 'todo') {
-                // add 'visible' class
-                $todoList.addClass('visible');
+                // add visible class
+                $todoListCont.addClass(visible);
                 // Display Input Section
                 $inputSection.slideDown(animationSpeed);
                 // Focus on Task Input
@@ -80,42 +175,11 @@ $(document).ready(function() {
                 // Hide Input Section
                 $inputSection.slideUp(animationSpeed);
                 // add class to 'completed' tab
-                $completedList.addClass('visible');
-
+                $completedListCont.addClass(visible);
             }
         });
 
-        function checkmarkButton(temp) {
-            temp = $(temp.target).closest('li');
-            if (temp != "") {
 
-                $(temp).slideUp(230);
-                setTimeout(
-                    function() {
-
-                        if ($('#todo-list-btn').hasClass('active')) {
-                            $('#completed-list').prepend(temp);
-                        } else {
-                            $('#todo-list').prepend(temp);
-                        }
-
-                        $(temp).show();
-                    },
-                    250
-                );
-            }
-        }
-
-        function removeButton(temp) {
-            temp = $(temp.target).closest('li');
-            $(temp).slideUp(230);
-            setTimeout(
-                function() {
-                    $(temp).remove();
-                },
-                250
-            );
-        }
 
         $taskLists.on('click', '.taskLabel', checkmarkButton);
         $taskLists.on('click', '.remove', removeButton);
