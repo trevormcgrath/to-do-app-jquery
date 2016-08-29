@@ -82,8 +82,6 @@ $(document).ready(function() {
             //Get task li element
             task = getTaskLi(task.target);
 
-            var test = task.find('input').attr('id');
-
             //slide up task
             $(task).slideUp(230);
             //delay task removal
