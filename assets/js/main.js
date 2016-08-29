@@ -26,63 +26,22 @@ $(document).ready(function() {
 
         /* End globals */
 
+        function getTaskLi(target) {
+            //Get task li element
+            return $(target).closest('li');
+        }
+
         function fetchStoredTasks() {
-            taskCount = storedTasks.length;
             $.each(storedTasks, function(i) {
                 createTask(storedTasks[i]);
             });
             console.log(storedTasks);
         }
 
-        function getTaskLi(target) {
-            //Get task li element
-            return $(target).closest('li');
-        }
-
-        function checkmarkButton(_task) {
-            //Get task li element
-            _task = getTaskLi(_task.target);
-            if (_task !== "") {
-                $(_task).slideUp(230);
-                setTimeout(
-                    function() {
-                        if ($todoListBtn.hasClass(active)) {
-                            $completedList.prepend(_task);
-                        } else {
-                            $todoList.prepend(_task);
-                        }
-
-                        $(_task).show();
-                    }, animationSpeed);
-            }
-        }
-
-        function removeButton(_task) {
-            //Get task li element
-            _task = getTaskLi(_task.target);
-
-            //slide up task
-            $(_task).slideUp(230);
-            //delay task removal
-            setTimeout(
-                function() {
-                    //remove task
-                    $(_task).remove();
-                },
-                animationSpeed);
-        }
-
-        //Fetch Todos
-        fetchStoredTasks();
-
-
-        //Stopping the normal form behavior.
-        $taskInput.submit(function(e) { e.preventDefault(); });
-
         function createTask(task) {
             var html = "";
             taskCount = storedTasks.length;
-            task.id = task.taskCount;
+            task.id = taskCount;
 
             // Build task HTML
             html += '<li>';
@@ -102,6 +61,49 @@ $(document).ready(function() {
             }
         }
 
+        function checkmarkButton(task) {
+            //Get task li element
+            task = getTaskLi(task.target);
+            if (task !== "") {
+                $(task).slideUp(230);
+                setTimeout(
+                    function() {
+                        if ($todoListBtn.hasClass(active)) {
+                            $completedList.prepend(task);
+                        } else {
+                            $todoList.prepend(task);
+                        }
+                        $(task).show();
+                    }, animationSpeed);
+            }
+        }
+
+        function removeButton(task) {
+            //Get task li element
+            task = getTaskLi(task.target);
+
+            var test = task.find('input').attr('id');
+
+            //slide up task
+            $(task).slideUp(230);
+            //delay task removal
+            setTimeout(
+                function() {
+                    //remove task
+                    $(task).remove();
+                },
+                animationSpeed);
+        }
+
+        //Fetch Todos
+        fetchStoredTasks();
+
+
+        //Stopping the normal form behavior.
+        $taskInput.submit(function(e) { e.preventDefault(); });
+
+
+
         /*** $taskSubmit:
         Add a task from input into the todoTasks array, then clear the input. ***/
         $taskSubmit.click(function() {
@@ -112,7 +114,6 @@ $(document).ready(function() {
 
             if (todo !== "") {
                 task.todo = todo;
-                task.id = Math.random() * 1000;
 
                 storedTasks.push(task);
                 //Add new task to DOM
