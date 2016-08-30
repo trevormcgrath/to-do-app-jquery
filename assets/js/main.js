@@ -3,27 +3,62 @@ $(document).ready(function() {
     var todoApp = (function($) {
 
         /* Global Variables */
-        var todoTasks = [],
-            completedTasks = [],
-            pageSwitch = true,
+        var active = 'active',
+            visible = 'visible',
+            animationSpeed = 250,
+
             //DOM Elements
             $inputSection = $('#input-section'),
             $taskInput = $("#task-input"),
             $taskSubmit = $('#task-submit'),
             //Lists
-            $todoList = $('#todo-container'),
-            $completedList = $('#completed-container'),
-            $taskLists = $todoList.add($completedList),
+            $todoListCont = $('#todo-container'),
+            $completedListCont = $('#completed-container'),
+            $taskLists = $todoListCont.add($completedListCont),
+            $todoList = $('#todo-list'),
+            $completedList = $('#completed-list'),
             //Buttons
             $todoListBtn = $('#todo-list-btn'),
-            $completedListBtn = $('#completed-list-btn'),
-            $listTabBtns = $('header nav button'),
-            animationSpeed = 150;
+            $listTabBtns = $('header nav button');
 
         /* End globals */
 
-        $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
+        function getTaskLi(target) {
+            //Get task li element
+            return $(target).closest('li');
+        }
 
+        function checkmarkButton(task) {
+            //Get task li element
+            task = getTaskLi(task.target);
+            if (task !== "") {
+                $(task).slideUp(230);
+                setTimeout(
+                    function() {
+                        if ($todoListBtn.hasClass(active)) {
+                            $completedList.prepend(task);
+                        } else {
+                            $todoList.prepend(task);
+                        }
+                        $(task).show();
+                    }, animationSpeed);
+            }
+        }
+
+        function removeButton(task) {
+            //Get task li element
+            task = getTaskLi(task.target);
+            //slide up task
+            $(task).slideUp(230);
+            //delay task removal
+            setTimeout(
+                function() {
+                    //remove task
+                    $(task).remove();
+                },
+                animationSpeed);
+        }
+        $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
 
         /*** $taskSubmit:
         Add a task from input into the todoTasks array, then clear the input. ***/
@@ -45,7 +80,7 @@ $(document).ready(function() {
             taskHTML += '<span class="remove"></span>';
             taskHTML += '</li>';
 
-            if (taskText != "") {
+            if (taskText !== "") {
                 //Add task to top of list
                 _$todoList.prepend(taskHTML);
             }
@@ -58,20 +93,20 @@ $(document).ready(function() {
         - Add 'active' class to list tab when clicked
         - Display active task list
         ***/
-        $listTabBtns.click(function(e) {
+        $listTabBtns.click(function() {
             var $activeTab = $(this),
                 taskInput = $taskInput.find('input');
             // remove active class
-            $listTabBtns.removeClass('active');
+            $listTabBtns.removeClass(active);
             // remove visible class from both list-containers
-            $todoList.add($completedList).removeClass('visible');
+            $todoListCont.add($completedListCont).removeClass(visible);
             // add active class to clicked tab
-            $activeTab.addClass('active');
+            $activeTab.addClass(active);
 
             // if active tab is "Todo"
             if ($activeTab.text().toLowerCase() === 'todo') {
-                // add 'visible' class
-                $todoList.addClass('visible');
+                // add visible class
+                $todoListCont.addClass(visible);
                 // Display Input Section
                 $inputSection.slideDown(animationSpeed);
                 // Focus on Task Input
@@ -80,42 +115,12 @@ $(document).ready(function() {
                 // Hide Input Section
                 $inputSection.slideUp(animationSpeed);
                 // add class to 'completed' tab
-                $completedList.addClass('visible');
-
+                $completedListCont.addClass(visible);
             }
         });
 
-        function checkmarkButton(temp) {
-            temp = $(temp.target).closest('li');
-            if (temp != "") {
 
-                $(temp).slideUp(230);
-                setTimeout(
-                    function() {
 
-                        if ($('#todo-list-btn').hasClass('active')) {
-                            $('#completed-list').prepend(temp);
-                        } else {
-                            $('#todo-list').prepend(temp);
-                        }
-
-                        $(temp).show();
-                    },
-                    250
-                );
-            }
-        }
-
-        function removeButton(temp) {
-            temp = $(temp.target).closest('li');
-            $(temp).slideUp(230);
-            setTimeout(
-                function() {
-                    $(temp).remove();
-                },
-                250
-            );
-        }
 
         $taskLists.on('click', '.taskLabel', checkmarkButton);
         $taskLists.on('click', '.remove', removeButton);
