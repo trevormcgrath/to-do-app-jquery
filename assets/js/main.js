@@ -184,17 +184,16 @@ $(document).ready(function() {
                     id: Number($el.siblings('input').attr('id'))
                 };
 
-                $.each(storedTasks, function(i) {
+                for (var i = 0; i < storedTasks.length; i++) {
                     var storedTask = storedTasks[i];
 
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
-                        storedTask.delete = true;
-                        // storedTasks.splice(i, 1);
+                        storedTasks.splice(i, 1);
                         removeButton(e);
-                        console.log(storedTask)
                     }
-                });
+                }
+                console.log(storedTasks);
             }
         })
 
