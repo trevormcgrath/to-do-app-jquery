@@ -21,7 +21,19 @@ $(document).ready(function() {
             $todoListBtn = $('#todo-list-btn'),
             $listTabBtns = $('header nav button'),
             //Local Storage
-            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [],
+            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [{
+                id: 124,
+                todo: "Task todo number 2",
+                complete: false
+            }, {
+                id: 123,
+                todo: "Task todo number 1",
+                complete: true
+            }, {
+                id: 121,
+                todo: "Task todo number 3",
+                complete: false
+            }],
             taskCount = 0;
 
         /* End globals */
@@ -41,7 +53,7 @@ $(document).ready(function() {
         function createTask(task) {
             var html = "";
             taskCount = storedTasks.length;
-            task.id = taskCount;
+            // task.id = taskCount;
 
             // Build task HTML
             html += '<li>';
@@ -157,8 +169,33 @@ $(document).ready(function() {
 
 
 
-        $taskLists.on('click', '.taskLabel', checkmarkButton);
-        $taskLists.on('click', '.remove', removeButton);
+        // $taskLists.on('click', '.taskLabel', checkmarkButton);
+        // $taskLists.on('click', '.remove', removeButton);
+        $taskLists.on('click', '.taskLabel, .remove', function(e) {
+            e.stopPropagation();
+            var $el = $(this);
+
+            if ($el.hasClass('complete') || $el.hasClass('taskLabel')) {
+                checkmarkButton(e);
+            } else {
+
+                var task = {
+                    todo: $el.prev().text(),
+                    id: Number($el.siblings('input').attr('id'))
+                };
+
+                $.each(storedTasks, function(i) {
+                    var storedTask = storedTasks[i];
+
+                    if (task.todo === storedTask.todo &&
+                        task.id === storedTask.id) {
+                        removeButton(e);
+                        storedTasks.splice(i, 1);
+                    }
+                });
+                console.log(storedTasks);
+            }
+        })
 
         /*** Objectives / Plan:
 
