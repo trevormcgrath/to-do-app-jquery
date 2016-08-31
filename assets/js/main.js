@@ -21,20 +21,8 @@ $(document).ready(function() {
             $todoListBtn = $('#todo-list-btn'),
             $listTabBtns = $('header nav button'),
             //Local Storage
-            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [{
-                id: 123,
-                todo: "Task todo number 1",
-                complete: true
-            }, {
-                id: 124,
-                todo: "Task todo number 2",
-                complete: false
-            }, {
-                id: 121,
-                todo: "Task todo number 3",
-                complete: false
-            }],
-            taskCount = 0;
+            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [],
+            taskCount = Number(localStorage.getItem('taskCount')) || 0;
 
         /* End globals */
 
@@ -47,13 +35,10 @@ $(document).ready(function() {
             $.each(storedTasks, function(i) {
                 createTask(storedTasks[i]);
             });
-            console.log(storedTasks);
         }
 
         function createTask(task) {
             var html = "";
-            taskCount = storedTasks.length;
-            // task.id = taskCount;
 
             // Build task HTML
             html += '<li>';
@@ -129,7 +114,7 @@ $(document).ready(function() {
                 //Add new task to DOM
                 createTask(task);
 
-                console.log(storedTasks);
+                localStorage.setItem('tasks', JSON.stringify(storedTasks));
             }
 
             //Reset input value
@@ -190,33 +175,11 @@ $(document).ready(function() {
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
                         storedTasks.splice(i, 1);
+                        localStorage.setItem('tasks', JSON.stringify(storedTasks));
                         removeButton(e);
                     }
                 }
-                console.log(storedTasks);
             }
         })
-
-        /*** Objectives / Plan:
-
-            Short run:
-                - When the $todoList's <span id="complete"> is clicked, take <span id="the-task">.html()
-                    into a varibale, put into the $completedList.append() below.
-
-                - When the $todoLis's <span id="remove"> is clicked, put into the... $completedList ?
-
-                - When the $completedList's <span id="add"> is clicked, put back into the $todoList and
-                    show a notification
-
-                - When the $completedList's <span id="trash"> is clicked, make an alert "Permanently delete?"
-                    then just .remove()
-
-            Long run:
-                - In the header area, make the 'Todo' and 'Complete' buttons toggle an add/remove class
-                transition thing to show the different <div id="todo-container"> versus <div id="completed-container">
-
-                - Add styles to make app look good, use min-width and build mobile styles first, then outwards towards desktop
-
-        ***/
     }(jQuery));
 });
