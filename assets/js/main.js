@@ -22,13 +22,13 @@ $(document).ready(function() {
             $listTabBtns = $('header nav button'),
             //Local Storage
             storedTasks = JSON.parse(localStorage.getItem('tasks')) || [{
-                id: 124,
-                todo: "Task todo number 2",
-                complete: false
-            }, {
                 id: 123,
                 todo: "Task todo number 1",
                 complete: true
+            }, {
+                id: 124,
+                todo: "Task todo number 2",
+                complete: false
             }, {
                 id: 121,
                 todo: "Task todo number 3",
@@ -189,11 +189,12 @@ $(document).ready(function() {
 
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
+                        storedTask.delete = true;
+                        // storedTasks.splice(i, 1);
                         removeButton(e);
-                        storedTasks.splice(i, 1);
+                        console.log(storedTask)
                     }
                 });
-                console.log(storedTasks);
             }
         })
 
