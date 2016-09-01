@@ -22,7 +22,7 @@ $(document).ready(function() {
             $listTabBtns = $('header nav button'),
             //Local Storage
             storedTasks = JSON.parse(localStorage.getItem('tasks')) || [],
-            taskCount = Number(localStorage.getItem('taskCount')) || 0;
+            taskCount = 0;
 
         /* End globals */
 
@@ -39,6 +39,9 @@ $(document).ready(function() {
 
         function createTask(task) {
             var html = "";
+            taskCount += 1;
+
+            task.id = taskCount;
 
             // Build task HTML
             html += '<li>';
@@ -121,7 +124,6 @@ $(document).ready(function() {
             input.val("").focus();
         });
 
-
         /*** $listTabBtns
         - Add 'active' class to list tab when clicked
         - Display active task list
@@ -152,22 +154,34 @@ $(document).ready(function() {
             }
         });
 
+        function getTask($el) {
+            $el = $($el);
 
+            if ($el.hasClass('taskLabel')) {
+                return {
+                    todo: $el.text(),
+                    id: Number($el.attr('for'))
+                }
+            } else {
+                return {
+                    todo: $el.prev().text(),
+                    id: Number($el.siblings('input').attr('id'))
+                }
+            }
 
+        }
         // $taskLists.on('click', '.taskLabel', checkmarkButton);
         // $taskLists.on('click', '.remove', removeButton);
         $taskLists.on('click', '.taskLabel, .remove', function(e) {
-            e.stopPropagation();
-            var $el = $(this);
+            // e.stopPropagation();
+
+            var $el = $(this),
+                task = getTask($el);
+
 
             if ($el.hasClass('complete') || $el.hasClass('taskLabel')) {
                 checkmarkButton(e);
             } else {
-
-                var task = {
-                    todo: $el.prev().text(),
-                    id: Number($el.siblings('input').attr('id'))
-                };
 
                 for (var i = 0; i < storedTasks.length; i++) {
                     var storedTask = storedTasks[i];
