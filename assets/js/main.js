@@ -45,7 +45,9 @@ $(document).ready(function() {
 
             // Build task HTML
             html += '<li>';
-            html += '<input type="checkbox" id="' + task.id + '">';
+            html += '<input type="checkbox" id="' + task.id + '"';
+            html += task.complete ? 'checked' : null;
+            html += '>';
             html += '<label class="taskLabel" for="' + task.id + '">';
             html += '<span class="complete"></span>';
             html += task.todo;
@@ -170,21 +172,50 @@ $(document).ready(function() {
             }
 
         }
+
+        function taskIsAMatch(task, storedTask) {
+
+            // for (var i = 0; i < storedTasks.length; i++) {
+            //     var storedTask = storedTasks[i];
+
+            //     if (task.todo === storedTask.todo &&
+            //         task.id === storedTask.id) {
+
+            //         return true;
+            //     } else {
+            //         return false;
+            //     }
+            // }
+
+            return (task.todo === storedTask.todo &&
+                task.id === storedTask.id);
+        }
         // $taskLists.on('click', '.taskLabel', checkmarkButton);
         // $taskLists.on('click', '.remove', removeButton);
         $taskLists.on('click', '.taskLabel, .remove', function(e) {
-            // e.stopPropagation();
+            e.stopPropagation();
 
             var $el = $(this),
                 task = getTask($el);
 
-
             if ($el.hasClass('complete') || $el.hasClass('taskLabel')) {
-                checkmarkButton(e);
-            } else {
 
                 for (var i = 0; i < storedTasks.length; i++) {
                     var storedTask = storedTasks[i];
+                    if (task.todo === storedTask.todo &&
+                        task.id === storedTask.id) {
+                        storedTask.complete = true;
+                        console.log(task);
+                        localStorage.setItem('tasks', JSON.stringify(storedTasks));
+                        checkmarkButton(e);
+                    }
+                }
+
+            } else {
+                for (var i = 0; i < storedTasks.length; i++) {
+                    var storedTask = storedTasks[i];
+
+                    console.log(taskIsAMatch(task, storedTask));
 
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
