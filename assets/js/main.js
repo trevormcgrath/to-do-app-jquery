@@ -32,9 +32,11 @@ $(document).ready(function() {
         }
 
         function fetchStoredTasks() {
+
             $.each(storedTasks, function(i) {
                 createTask(storedTasks[i]);
-            });
+            })
+            localStorage.setItem('tasks', JSON.stringify(storedTasks));
         }
 
         function createTask(task) {
@@ -163,12 +165,12 @@ $(document).ready(function() {
                 return {
                     todo: $el.text(),
                     id: Number($el.attr('for'))
-                }
+                };
             } else {
                 return {
                     todo: $el.prev().text(),
                     id: Number($el.siblings('input').attr('id'))
-                }
+                };
             }
 
         }
@@ -204,7 +206,7 @@ $(document).ready(function() {
                     var storedTask = storedTasks[i];
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
-                        storedTask.complete = true;
+                        storedTask.complete = storedTask.complete ? false : true;
                         console.log(task);
                         localStorage.setItem('tasks', JSON.stringify(storedTasks));
                         checkmarkButton(e);
@@ -215,8 +217,6 @@ $(document).ready(function() {
                 for (var i = 0; i < storedTasks.length; i++) {
                     var storedTask = storedTasks[i];
 
-                    console.log(taskIsAMatch(task, storedTask));
-
                     if (task.todo === storedTask.todo &&
                         task.id === storedTask.id) {
                         storedTasks.splice(i, 1);
@@ -225,6 +225,6 @@ $(document).ready(function() {
                     }
                 }
             }
-        })
+        });
     }(jQuery));
 });
