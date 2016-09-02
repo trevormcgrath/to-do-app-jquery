@@ -160,6 +160,9 @@ body {
             margin-right: 30px;
         }
     }
+    #todo-container > h3 {
+        margin-top: 0;
+    }
     #completed-list {
         label {
             color: $color_base_lightGrey;
