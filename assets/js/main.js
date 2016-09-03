@@ -19,13 +19,50 @@ $(document).ready(function() {
             $completedList = $('#completed-list'),
             //Buttons
             $todoListBtn = $('#todo-list-btn'),
-            $listTabBtns = $('header nav button');
+            $listTabBtns = $('header nav button'),
+            //Local Storage
+            storedTasks = JSON.parse(localStorage.getItem('tasks')) || [],
+            taskCount = 0;
 
         /* End globals */
 
         function getTaskLi(target) {
             //Get task li element
             return $(target).closest('li');
+        }
+
+        function fetchStoredTasks() {
+
+            $.each(storedTasks, function(i) {
+                createTask(storedTasks[i]);
+            })
+            localStorage.setItem('tasks', JSON.stringify(storedTasks));
+        }
+
+        function createTask(task) {
+            var html = "";
+            taskCount += 1;
+
+            task.id = taskCount;
+
+            // Build task HTML
+            html += '<li>';
+            html += '<input type="checkbox" id="' + task.id + '"';
+            html += task.complete ? 'checked' : null;
+            html += '>';
+            html += '<label class="taskLabel" for="' + task.id + '">';
+            html += '<span class="complete"></span>';
+            html += task.todo;
+            html += '</label>';
+            html += '<span class="remove"></span>';
+            html += '</li>';
+
+            //Add new task to DOM
+            if (!task.complete) {
+                $todoList.prepend(html);
+            } else {
+                $completedList.prepend(html);
+            }
         }
 
         function checkmarkButton(task) {
@@ -58,35 +95,33 @@ $(document).ready(function() {
                 },
                 animationSpeed);
         }
-        $taskInput.submit(function(e) { e.preventDefault(); }); //Stopping the normal form behavior.
+
+        //Fetch Todos
+        fetchStoredTasks();
+
+        //Stopping the normal form behavior.
+        $taskInput.submit(function(e) { e.preventDefault(); });
 
         /*** $taskSubmit:
         Add a task from input into the todoTasks array, then clear the input. ***/
-        $taskSubmit.click(function(event) {
+        $taskSubmit.click(function() {
 
             var input = $taskInput.find("input"),
-                taskText = input.val().trim(),
-                text_id = taskText.replace(/\s+/g, '-').toLowerCase(),
-                _$todoList = $('#todo-list'),
-                taskHTML = "";
+                todo = input.val().trim(),
+                task = {};
 
-            // Build task HTML
-            taskHTML += '<li>';
-            taskHTML += '<input type="checkbox" id="' + text_id + '">';
-            taskHTML += '<label class="taskLabel" for="' + text_id + '">';
-            taskHTML += '<span class="complete"></span>';
-            taskHTML += taskText;
-            taskHTML += '</label>';
-            taskHTML += '<span class="remove"></span>';
-            taskHTML += '</li>';
+            if (todo !== "") {
+                task.todo = todo;
 
-            if (taskText !== "") {
-                //Add task to top of list
-                _$todoList.prepend(taskHTML);
+                storedTasks.push(task);
+                //Add new task to DOM
+                createTask(task);
+
+                localStorage.setItem('tasks', JSON.stringify(storedTasks));
             }
 
             //Reset input value
-            input.val("");
+            input.val("").focus();
         });
 
         /*** $listTabBtns
@@ -119,32 +154,73 @@ $(document).ready(function() {
             }
         });
 
+        function getTask($el) {
+            $el = $($el);
 
+            if ($el.hasClass('taskLabel')) {
+                return {
+                    todo: $el.text(),
+                    id: Number($el.attr('for'))
+                };
+            } else {
+                return {
+                    todo: $el.prev().text(),
+                    id: Number($el.siblings('input').attr('id'))
+                };
+            }
 
+        }
 
-        $taskLists.on('click', '.taskLabel', checkmarkButton);
-        $taskLists.on('click', '.remove', removeButton);
+        function taskIsAMatch(task, storedTask) {
 
-        /*** Objectives / Plan:
+            // for (var i = 0; i < storedTasks.length; i++) {
+            //     var storedTask = storedTasks[i];
 
-            Short run:
-                - When the $todoList's <span id="complete"> is clicked, take <span id="the-task">.html()
-                    into a varibale, put into the $completedList.append() below.
+            //     if (task.todo === storedTask.todo &&
+            //         task.id === storedTask.id) {
 
-                - When the $todoLis's <span id="remove"> is clicked, put into the... $completedList ?
+            //         return true;
+            //     } else {
+            //         return false;
+            //     }
+            // }
 
-                - When the $completedList's <span id="add"> is clicked, put back into the $todoList and
-                    show a notification
+            return (task.todo === storedTask.todo &&
+                task.id === storedTask.id);
+        }
+        // $taskLists.on('click', '.taskLabel', checkmarkButton);
+        // $taskLists.on('click', '.remove', removeButton);
+        $taskLists.on('click', '.taskLabel, .remove', function(e) {
+            e.stopPropagation();
 
-                - When the $completedList's <span id="trash"> is clicked, make an alert "Permanently delete?"
-                    then just .remove()
+            var $el = $(this),
+                task = getTask($el);
 
-            Long run:
-                - In the header area, make the 'Todo' and 'Complete' buttons toggle an add/remove class
-                transition thing to show the different <div id="todo-container"> versus <div id="completed-container">
+            if ($el.hasClass('complete') || $el.hasClass('taskLabel')) {
 
-                - Add styles to make app look good, use min-width and build mobile styles first, then outwards towards desktop
+                for (var i = 0; i < storedTasks.length; i++) {
+                    var storedTask = storedTasks[i];
+                    if (task.todo === storedTask.todo &&
+                        task.id === storedTask.id) {
+                        storedTask.complete = storedTask.complete ? false : true;
+                        console.log(task);
+                        localStorage.setItem('tasks', JSON.stringify(storedTasks));
+                        checkmarkButton(e);
+                    }
+                }
 
-        ***/
+            } else {
+                for (var i = 0; i < storedTasks.length; i++) {
+                    var storedTask = storedTasks[i];
+
+                    if (task.todo === storedTask.todo &&
+                        task.id === storedTask.id) {
+                        storedTasks.splice(i, 1);
+                        localStorage.setItem('tasks', JSON.stringify(storedTasks));
+                        removeButton(e);
+                    }
+                }
+            }
+        });
     }(jQuery));
 });
