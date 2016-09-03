@@ -173,23 +173,10 @@ $(document).ready(function() {
 
         function taskIsAMatch(task, storedTask) {
 
-            // for (var i = 0; i < storedTasks.length; i++) {
-            //     var storedTask = storedTasks[i];
-
-            //     if (task.todo === storedTask.todo &&
-            //         task.id === storedTask.id) {
-
-            //         return true;
-            //     } else {
-            //         return false;
-            //     }
-            // }
-
             return (task.todo === storedTask.todo &&
                 task.id === storedTask.id);
         }
-        // $taskLists.on('click', '.taskLabel', checkmarkButton);
-        // $taskLists.on('click', '.remove', removeButton);
+
         $taskLists.on('click', '.taskLabel, .remove', function(e) {
             e.stopPropagation();
 
